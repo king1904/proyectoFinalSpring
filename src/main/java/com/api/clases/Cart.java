@@ -30,11 +30,10 @@ public @Data class Cart {
 	
 	
 	@JsonIgnore
-	@OneToOne
-	@JoinColumn(name = "user_id")
+	@OneToOne(cascade = CascadeType.PERSIST,mappedBy = "cart")
 	private Usuario user;
 	
-	@ManyToMany(cascade = CascadeType.ALL, fetch = FetchType.LAZY,mappedBy = "carts")
+	@ManyToMany(cascade = CascadeType.PERSIST, fetch = FetchType.LAZY)
  	private List<Producto> products;
 	
 	

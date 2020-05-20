@@ -74,7 +74,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 	public void configure(WebSecurity web) throws Exception {
 		// TODO Auto-generated method stub
 		super.configure(web);
-		web.ignoring().antMatchers("/productos/**", "/posts/**", "/user/**", "/compras/**", "/cart/**", "/message/**",
+		web.ignoring().antMatchers("/productos/**", "/posts/**", "/user/**", "/compra/**", "/cart/**", "/message/**",
 				"/webchat/**", "/socket.io/**","/userDetails/**");
 
 	}

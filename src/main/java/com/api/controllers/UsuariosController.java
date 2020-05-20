@@ -2,6 +2,8 @@ package com.api.controllers;
 
 import java.util.List;
 
+import javax.websocket.server.PathParam;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.authentication.AuthenticationManager;
@@ -18,8 +20,12 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.api.clases.Cart;
+import com.api.clases.Producto;
 import com.api.clases.Usuario;
 import com.api.clases.UsuarioDetails;
+import com.api.repositories.CartRepository;
+import com.api.repositories.ProductoRepository;
 import com.api.repositories.UsuarioRepository;
 import com.api.security.AuthRequest;
 import com.api.security.AuthResponse;
@@ -46,6 +52,10 @@ public class UsuariosController {
 	private UserDetailsServiceImpl userDetailsService;
 	@Autowired
 	 private UsuarioRepository userRepo;
+	@Autowired
+	private ProductoRepository productRepository;
+	@Autowired
+	private CartRepository cartRepository;
 	
 	 
 	 
@@ -98,6 +108,23 @@ public class UsuariosController {
 	public Usuario getUserByEmail(@PathVariable int id) {
 		
 		return this.userService.getUserById(id);
+	}
+	
+	@GetMapping("/user/{id}/cart/{productId}")
+	public Usuario updateCart(@PathVariable("id") Integer id, @PathVariable("productId") Integer productId) {
+		
+		Usuario usuario=this.userService.getUserById(id);
+		
+		
+		Producto productoNuevo= this.productRepository.findById(productId).get();
+		Cart cart=usuario.getCart();
+		cart.getProducts().add(productoNuevo);
+		this.cartRepository.save(cart);
+		
+		
+		usuario.setCart(cart);
+		
+		return this.userService.updateUser(usuario);
 	}
 	
 	@GetMapping("/user")

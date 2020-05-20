@@ -46,9 +46,13 @@ public @Data class Usuario {
 
 	private String roles;
 
-	@OneToOne(mappedBy = "user")
+	@OneToOne(cascade = CascadeType.ALL)
 	@JoinColumn(name = "cart_id")
 	private Cart cart;
+	
+	 
+	@OneToMany(cascade = CascadeType.ALL,fetch = FetchType.EAGER,mappedBy = "user")
+	private List<Compra> compras;
 	
 	public Usuario(int id, String username, UsuarioDetails userDetails, String email, String password) {
 		this.id = id;

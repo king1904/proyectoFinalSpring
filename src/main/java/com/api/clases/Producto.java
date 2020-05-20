@@ -38,8 +38,11 @@ public @Data class Producto {
 	@Column(name = "categoria")
 	private String categoria;
 	
-	@ManyToMany(cascade = CascadeType.ALL)
+	@ManyToMany(cascade = CascadeType.PERSIST)
 	private List<Image> imgs;
+	@JsonIgnore
+	@ManyToMany(cascade = CascadeType.ALL,mappedBy = "productos")
+	private List<Compra> compras ;
 	
 	@Column(name = "precio")
 	private float precio;
@@ -51,7 +54,7 @@ public @Data class Producto {
 	List<Post> posts;
 	
 	@JsonIgnore
-	@ManyToMany(cascade = CascadeType.ALL)
+	@ManyToMany(cascade = CascadeType.ALL,mappedBy = "products")
 	private List<Cart> carts; 
 
 	 
