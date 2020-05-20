@@ -12,7 +12,7 @@
 	<groupId>com.project</groupId>
 	<artifactId>spring-rest</artifactId>
 	<version>0.0.1-SNAPSHOT</version>
-	<packaging>war</packaging>
+	<packaging>jar</packaging>
 	<name>PeoyectoFinal</name>
 	<description>backend para una tienda online montada en angular</description>
 
