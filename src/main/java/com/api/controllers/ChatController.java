@@ -22,13 +22,6 @@ import com.api.clases.Usuario;
 	@MessageMapping("/chat.register")
 	@SendTo("/topic/public")
 	public ChatMessage register(@Payload ChatMessage chatMessage, SimpMessageHeaderAccessor headerAccessor) {
-		Usuario user=new Usuario();
-		user.setUserDetails(chatMessage.getUser().getUserDetails());
-		user.setEmail(chatMessage.getUser().getEmail());
-		user.setUsername(chatMessage.getUser().getUsername());
-		
-		chatMessage.setUser(user);
-		
 		headerAccessor.getSessionAttributes().put("username", chatMessage.getUser().getUsername());
 		return chatMessage;
 	}
@@ -36,6 +29,12 @@ import com.api.clases.Usuario;
 	@MessageMapping("/chat.send")
 	@SendTo("/topic/public")
 	public ChatMessage sendMessage(@Payload ChatMessage chatMessage) {
+		Usuario user=new Usuario();
+		user.setUserDetails(chatMessage.getUser().getUserDetails());
+		user.setEmail(chatMessage.getUser().getEmail());
+		user.setUsername(chatMessage.getUser().getUsername());
+		
+		chatMessage.setUser(user);
 		return chatMessage;
 	}
 
