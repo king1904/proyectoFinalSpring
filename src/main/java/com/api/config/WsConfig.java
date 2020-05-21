@@ -14,7 +14,7 @@ public class WsConfig implements WebSocketMessageBrokerConfigurer{
 	
 	@Override
 	public void registerStompEndpoints(StompEndpointRegistry registry) {
-		registry.addEndpoint("/webchat").setAllowedOrigins("*").withSockJS();
+		registry.addEndpoint("/backend/service/webchat").setAllowedOrigins("*").withSockJS();
 	}
 	
 	@Override
