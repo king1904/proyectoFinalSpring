@@ -13,11 +13,11 @@
 	<artifactId>spring-rest</artifactId>
 	<version>0.0.1-SNAPSHOT</version>
 	<packaging>jar</packaging>
-	<name>PeoyectoFinal</name>
+	<name>ProyectoFinal</name>
 	<description>backend para una tienda online montada en angular</description>
 
 	<properties>
-		<java.version>13</java.version>
+		<java.version>war</java.version>
 	</properties>
 
 	<dependencies>

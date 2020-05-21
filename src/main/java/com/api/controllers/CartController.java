@@ -24,7 +24,7 @@ import com.api.services.CartServiceImpl;
 
 @RestController
 @CrossOrigin("*")
-@RequestMapping("/cart")
+@RequestMapping("/backend/service/cart")
 public class CartController {
 
 	@Autowired

@@ -36,7 +36,7 @@ import com.api.services.UserServiceImpl;
 
 @CrossOrigin
 @RestController
-
+@RequestMapping("/backend/service/usuario")
 
 public class UsuariosController {
 	

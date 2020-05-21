@@ -21,7 +21,7 @@ import com.api.services.ProductoServiceImpl;
 
 @CrossOrigin
 @RestController
-@RequestMapping("/posts")
+@RequestMapping("/backend/service/posts")
 public class PostsController {
 
 	@Autowired

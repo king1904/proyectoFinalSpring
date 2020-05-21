@@ -18,7 +18,7 @@ import com.api.services.ProductoServiceImpl;
 
 @RestController
 @CrossOrigin("*")
-@RequestMapping("/productos")
+@RequestMapping("/backend/service/productos")
 public class ProductosController {
 	@Autowired
 	private   ProductoServiceImpl productoService;

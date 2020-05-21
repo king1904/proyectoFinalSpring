@@ -2,6 +2,7 @@ package com.api.controllers;
 
 import java.util.List;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -14,17 +15,13 @@ import com.api.services.MessageServiceImpl;
 
 @CrossOrigin
 @RestController
-@RequestMapping("/message")
+@RequestMapping("/backend/service/message")
 public class MessageController {
 	
-	
+	@Autowired
 	private MessageServiceImpl messageService;
 	
-public MessageController(MessageServiceImpl messageService) {
-	this.messageService=messageService;
-	
-}
-
+ 
 
 @GetMapping
 public List<Message> getMessages(){

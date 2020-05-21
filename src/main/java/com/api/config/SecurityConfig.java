@@ -75,7 +75,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 		// TODO Auto-generated method stub
 		super.configure(web);
 		web.ignoring().antMatchers("/productos/**", "/posts/**", "/user/**", "/compra/**", "/cart/**", "/message/**",
-				"/webchat/**", "/socket.io/**","/userDetails/**");
+				"/webchat/**", "/socket.io/**","/userDetails/**", "/resources/**","/**");
 
 	}
 

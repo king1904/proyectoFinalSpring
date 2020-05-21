@@ -25,7 +25,7 @@ import com.api.services.ComprasServiceImpl;
 
 @CrossOrigin
 @RestController
-@RequestMapping("/compra")
+@RequestMapping("/backend/service/compra")
 public class ComprasController {
 
 	@Autowired

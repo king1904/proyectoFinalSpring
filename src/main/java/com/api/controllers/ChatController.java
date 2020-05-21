@@ -14,7 +14,7 @@ import com.api.clases.ChatMessage;
 
 @Controller
 @CrossOrigin("*")
-@RequestMapping("webchat")
+@RequestMapping("/backend/service/webchat")
  public class ChatController {
 	
 	
