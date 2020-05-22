@@ -7,9 +7,12 @@ import lombok.NoArgsConstructor;
 @AllArgsConstructor
 @NoArgsConstructor
 public @Data class   ChatMessage {
-	private Usuario user;
-	private String content;
-	private String date;
+	 private String username;
+     private String name;
+     private String img;
+     private String content;
+     private String date;
+ 
  
 	
 }
