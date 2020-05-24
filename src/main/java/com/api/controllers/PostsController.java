@@ -42,9 +42,9 @@ public class PostsController {
 	
 	public List<Post> addPostToProduct(@RequestBody PostRequest post) {
 		
-		 this.postService.addPost(post); 
+		return  this.postService.addPost(post); 
 		 
-			return this.postService.getPostsByProductId(post.getProduct_id());
+			 
 
 	}
 	
@@ -55,11 +55,5 @@ public class PostsController {
 		return this.postService.updatePost(post);
 	}
 	
-@DeleteMapping
-	
-	public Post deletePost(@RequestBody Post post) {
-		
-		return this.postService.updatePost(post);
-	}
-
+ 
 }

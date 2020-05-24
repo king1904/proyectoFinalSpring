@@ -31,7 +31,7 @@ public class PostServiceImpl implements PostService {
 	}
 
 	@Override
-	public   Post addPost(PostRequest post) {
+	public  List <Post> addPost(PostRequest post) {
 		// TODO Auto-generated method stub
 		Post newPost=new Post();
 		newPost.setUser(this.userRepo.findById(post.getUser_id()).get());
@@ -40,7 +40,8 @@ public class PostServiceImpl implements PostService {
 		newPost.setLikes(0);
 		newPost.setProduct(this.productRepo.findById(post.getProduct_id()).get());
 		
-		return this.postRepository.save(newPost);
+		  this.postRepository.save(newPost);
+		  return this.postRepository.findAllByProductId(post.getProduct_id());
 //		  this.postRepository.insertPost(post.getLikes(), post.getText(), post.getProduct_id(), post.getUser_id(),
 //				post.getReplay_id());
 	}
