@@ -1,9 +1,11 @@
 package com.api.controllers;
 
 import java.util.List;
+import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.CrossOrigin;
+import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PatchMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -15,6 +17,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.api.clases.Post;
 import com.api.clases.PostRequest;
+import com.api.clases.PostResponse;
 import com.api.clases.Usuario;
 import com.api.services.PostServiceImpl;
 import com.api.services.ProductoServiceImpl;
@@ -37,9 +40,12 @@ public class PostsController {
 	
 	@PostMapping
 	
-	public Post addPostToProduct(@RequestBody PostRequest post) {
+	public List<Post> addPostToProduct(@RequestBody PostRequest post) {
 		
-		return this.postService.addPost(post); 
+		 this.postService.addPost(post); 
+		 
+			return this.postService.getPostsByProductId(post.getProduct_id());
+
 	}
 	
 	@PatchMapping
@@ -48,4 +54,12 @@ public class PostsController {
 		
 		return this.postService.updatePost(post);
 	}
+	
+@DeleteMapping
+	
+	public Post deletePost(@RequestBody Post post) {
+		
+		return this.postService.updatePost(post);
+	}
+
 }

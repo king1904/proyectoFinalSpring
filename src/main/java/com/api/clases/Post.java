@@ -31,6 +31,7 @@ public @Data class Post {
 	@GeneratedValue(strategy = GenerationType.AUTO)
 	private int id;
 
+	
 	@ManyToOne(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
 	@JoinColumn(name = "user_id")
 	private Usuario user;
