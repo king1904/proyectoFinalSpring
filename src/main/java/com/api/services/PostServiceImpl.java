@@ -39,11 +39,10 @@ public class PostServiceImpl implements PostService {
 		newPost.setText(post.getText());
 		newPost.setLikes(0);
 		newPost.setProduct(this.productRepo.findById(post.getProduct_id()).get());
-		
-		  this.postRepository.save(newPost);
+		newPost.setDate(post.getDate());
+		  this.postRepository.saveAndFlush(newPost);
 		  return this.postRepository.findAllByProductId(post.getProduct_id());
-//		  this.postRepository.insertPost(post.getLikes(), post.getText(), post.getProduct_id(), post.getUser_id(),
-//				post.getReplay_id());
+ 
 	}
 
 	@Override

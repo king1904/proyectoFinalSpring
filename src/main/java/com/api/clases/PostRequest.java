@@ -13,4 +13,5 @@ public @Data class PostRequest {
 	private int product_id;
 	private int user_id;
 	private Integer replay_id;
+	private String date;
 }
