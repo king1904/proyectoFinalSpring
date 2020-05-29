@@ -11,6 +11,7 @@ import org.springframework.security.authentication.UsernamePasswordAuthenticatio
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.web.bind.annotation.CrossOrigin;
+import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PatchMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -133,4 +134,8 @@ public class UsuariosController {
 		return this.userService.getUsuarios();
 	}
 	
+	@DeleteMapping("/{id}")
+	public void deleteUser(@PathVariable("id") int id) {
+		this.userRepo.deleteById(id);
+	}
 }

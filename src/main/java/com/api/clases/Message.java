@@ -5,9 +5,13 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 
+import lombok.AllArgsConstructor;
 import lombok.Data;
+import lombok.NoArgsConstructor;
 
 @Entity
+@NoArgsConstructor
+@AllArgsConstructor
 public @Data class Message {
 	
 	@Id
@@ -18,15 +22,7 @@ public @Data class Message {
 	private String email;
 	private int telefono;
 	private String text;
-
-	public Message() {}
-
-	public Message( String name, String email, int telefono, String text) {
-		this.name = name;
-		this.email = email;
-		this.telefono=telefono;
-		this.text = text;
-	}
+	private String date;
 
 	 
 	
