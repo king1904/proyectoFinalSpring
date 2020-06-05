@@ -1,5 +1,6 @@
 package com.api.controllers;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -20,6 +21,7 @@ import com.api.clases.Producto;
 import com.api.clases.Usuario;
 import com.api.repositories.CartRepository;
 import com.api.repositories.ProductoRepository;
+import com.api.repositories.UsuarioRepository;
 import com.api.services.CartServiceImpl;
 
 @RestController
@@ -34,6 +36,8 @@ public class CartController {
 	@Autowired
 	private ProductoRepository productRepository;
 	public boolean existe = false;
+@Autowired
+private UsuarioRepository userRepository;
 
 	@GetMapping
 
@@ -96,5 +100,16 @@ public class CartController {
 		cart.setProducts(productos);
 		return this.cartService.addOrUpdateCart(cart);
 	}
+	
+	@DeleteMapping("/{id}")
+	public Cart deleteUserCart(@PathVariable("id") int id) {
+
+		Cart userCart= this.cartRepository.findById(id).get();
+		List<Producto> productos=new ArrayList<Producto>();
+		
+		userCart.setProducts(productos);
+ 		return this.cartRepository.saveAndFlush(userCart);
+ 	}
+
 
 }

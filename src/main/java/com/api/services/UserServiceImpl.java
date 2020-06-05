@@ -82,4 +82,14 @@ public class UserServiceImpl {
 
 		return this.userRepository.saveAndFlush(originalUser);
 	}
+	
+	public Usuario adminUpdateUser(int id,String role,boolean active) {
+
+		Usuario originalUser = this.userRepository.findById(id).get();
+
+		originalUser.setRoles(role);
+		originalUser.setActive(active);
+
+		return this.userRepository.saveAndFlush(originalUser);
+	}
 }

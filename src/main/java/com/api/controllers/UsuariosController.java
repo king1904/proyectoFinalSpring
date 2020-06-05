@@ -40,100 +40,101 @@ import com.api.services.UserServiceImpl;
 @RequestMapping("/backend/service/usuario")
 
 public class UsuariosController {
-	
+
 	@Autowired
 	private JwtUtil jwtUtil;
 	@Autowired
-	private AuthenticationManager  authenticationManager;
+	private AuthenticationManager authenticationManager;
 	@Autowired
 	private UserDetailServiceImpl userDetailService;
 	@Autowired
-	private  UserServiceImpl userService;
+	private UserServiceImpl userService;
 	@Autowired
 	private UserDetailsServiceImpl userDetailsService;
 	@Autowired
-	 private UsuarioRepository userRepo;
+	private UsuarioRepository userRepo;
 	@Autowired
 	private ProductoRepository productRepository;
 	@Autowired
 	private CartRepository cartRepository;
-	
-	 
-	 
-	
+
 	@PostMapping("/login")
 
-	public ResponseEntity<?> createAutentecationToken(@RequestBody AuthRequest authRequest) throws Exception{
+	public ResponseEntity<?> createAutentecationToken(@RequestBody AuthRequest authRequest) throws Exception {
 		try {
-		authenticationManager.authenticate(
-				new UsernamePasswordAuthenticationToken(authRequest.getEmail(), authRequest.getPassword()));
-		}catch (Exception e) {
-			 throw new Exception("Incorrect username or password",e);
+			authenticationManager.authenticate(
+					new UsernamePasswordAuthenticationToken(authRequest.getEmail(), authRequest.getPassword()));
+		} catch (Exception e) {
+			throw new Exception("Incorrect username or password", e);
 		}
-		
-		final Usuario user= this.userRepo.findByEmail(authRequest.getEmail());
+
+		final Usuario user = this.userRepo.findByEmail(authRequest.getEmail());
 
 //		
 //		final UsuarioDetails usuarioDetails= new UsuarioDetails(user.getUserDetails().getFirstname()
 //				, user.getUserDetails().getLastname(), user.getUserDetails().getWebsite(),
 //				user.getUserDetails().getInfo(),user.getUserDetails().getImg(),user);
 //		
- 	//	final Usuario sentUser= new Usuario(user.getId(), user.getUsername(),usuarioDetails, user.getEmail() , user.getPassword(), user.isActive(), user.getRoles());
-		
+		// final Usuario sentUser= new Usuario(user.getId(),
+		// user.getUsername(),usuarioDetails, user.getEmail() , user.getPassword(),
+		// user.isActive(), user.getRoles());
 
-		final UserDetails userDetails= userDetailService.loadUserByUsername(authRequest.getEmail());
-		final String jwt=jwtUtil.generateToken(userDetails);
-		return ResponseEntity.ok(new AuthResponse(jwt,user));
+		final UserDetails userDetails = userDetailService.loadUserByUsername(authRequest.getEmail());
+		final String jwt = jwtUtil.generateToken(userDetails);
+		return ResponseEntity.ok(new AuthResponse(jwt, user));
 	}
-	
+
 	@PostMapping("/register")
 	public Usuario registrarUsuario(@RequestBody Usuario user) {
-		
+
 		return this.userService.registerUser(user);
 	}
-	
+
 	@PatchMapping("/update")
 	public Usuario updateUser(@RequestBody Usuario user) {
-		
+
 		return this.userService.updateUser(user);
 	}
-	
+
+	@PatchMapping("/update/{id}")
+	public Usuario adminUpdateUser(@PathVariable("id") int id, @RequestBody Usuario user) {
+
+		return this.userService.adminUpdateUser(id, user.getRoles(), user.isActive());
+	}
+
 	@PatchMapping("/userDetails/update")
 	public UsuarioDetails updateUserDetails(@RequestBody UsuarioDetails user) {
-		
+
 		return this.userDetailsService.updateUserDetails(user);
 	}
-	
-	
+
 	@GetMapping("/user/{id}")
 	public Usuario getUserByEmail(@PathVariable int id) {
-		
+
 		return this.userService.getUserById(id);
 	}
-	
+
 	@GetMapping("/user/{id}/cart/{productId}")
 	public Usuario updateCart(@PathVariable("id") Integer id, @PathVariable("productId") Integer productId) {
-		
-		Usuario usuario=this.userService.getUserById(id);
-		
-		
-		Producto productoNuevo= this.productRepository.findById(productId).get();
-		Cart cart=usuario.getCart();
+
+		Usuario usuario = this.userService.getUserById(id);
+
+		Producto productoNuevo = this.productRepository.findById(productId).get();
+		Cart cart = usuario.getCart();
 		cart.getProducts().add(productoNuevo);
 		this.cartRepository.save(cart);
-		
-		
+
 		usuario.setCart(cart);
-		
+
 		return this.userService.updateUser(usuario);
 	}
-	
+
 	@GetMapping("/user")
 	public List<Usuario> getUsers() {
-		
+
 		return this.userService.getUsuarios();
 	}
-	
+
 	@DeleteMapping("/{id}")
 	public void deleteUser(@PathVariable("id") int id) {
 		this.userRepo.deleteById(id);

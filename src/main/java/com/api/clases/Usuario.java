@@ -36,7 +36,7 @@ public @Data class Usuario {
 
 	private String email;
 
-	 @JsonIgnore
+	@JsonIgnore
 	@OneToMany(cascade = CascadeType.ALL, fetch = FetchType.LAZY, mappedBy = "user")
 	private List<Post> posts;
 
@@ -49,11 +49,10 @@ public @Data class Usuario {
 	@OneToOne(cascade = CascadeType.ALL)
 	@JoinColumn(name = "cart_id")
 	private Cart cart;
-	
-	 
-	@OneToMany(cascade = CascadeType.ALL,fetch = FetchType.EAGER,mappedBy = "user")
+
+	@OneToMany(cascade = CascadeType.ALL, fetch = FetchType.EAGER, mappedBy = "user")
 	private List<Compra> compras;
-	
+
 	public Usuario(int id, String username, UsuarioDetails userDetails, String email, String password) {
 		this.id = id;
 		this.username = username;
@@ -63,4 +62,10 @@ public @Data class Usuario {
 
 	}
 
+	public Usuario(String roles, boolean active) {
+
+		this.active = active;
+
+		this.roles = roles;
+	}
 }

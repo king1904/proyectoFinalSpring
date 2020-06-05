@@ -1,6 +1,6 @@
 package com.api.controllers;
 
- import java.text.SimpleDateFormat;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
@@ -44,6 +44,13 @@ public class ComprasController {
 		return this.usuarioRepository.findById(id).get().getCompras();
 	}
 
+	@GetMapping()
+
+	public List<Compra> getCompras() {
+
+		return this.compraRepository.findAll();
+	}
+
 //	@PostMapping("/{id}/{productId}")
 //	public Compra aniadirCompra(@PathVariable("id") int id, @PathVariable("productId") int productId,
 //			@RequestBody CompraDatos datos) {
@@ -67,35 +74,34 @@ public class ComprasController {
 //		return this.compraRepository.saveAndFlush(compraNueva);
 //	}
 //	
-	
-	
+
 	@PostMapping("/{id}")
 	public Compra aniadirCompra(@PathVariable("id") int id, @RequestBody CompraDatos datos) {
-		Usuario usuario = this.usuarioRepository.findById(id).get();
-		Compra compraNueva = this.compraRepository.save(new Compra());
 
-		compraNueva.setUser(usuario);
+		Compra compraNueva = this.compraRepository.findById(id).get();
+		List<Producto> productos;
+		if (compraNueva.getProductos().size() > 0) {
+			 productos = compraNueva.getProductos();
+		}else {
+			 productos = new ArrayList<Producto>();
 
-		List<Producto> productos = new ArrayList<Producto>();
+		}
 
-		datos.getProductos().forEach(product->{
+		datos.getProductos().forEach(product -> {
 			Producto producto = this.productRepository.findById(product.getId()).get();
-			if(producto.getStock()>product.getCantidad()) {
-			for(int i=0;i<product.getCantidad();i++) {
-				productos.add(producto);
+			if (producto.getStock() > product.getCantidad()) {
+				for (int i = 0; i < product.getCantidad(); i++) {
+					productos.add(producto);
+				}
+				producto.setStock(producto.getStock() - product.getCantidad());
 			}
-			producto.setStock(producto.getStock()-product.getCantidad());
-			}
-			 
 
 		});
-	 
+
 		compraNueva.setProductos(productos);
-  		String timeStamp = new SimpleDateFormat("yyyy.MM.dd.HH.mm.ss").format(new Date());
+		String timeStamp = new SimpleDateFormat("yyyy.MM.dd.HH.mm.ss").format(new Date());
 
 		compraNueva.setDate(timeStamp);
-		this.compraRepository.saveAndFlush(compraNueva);
- 
 
 		return this.compraRepository.saveAndFlush(compraNueva);
 	}
