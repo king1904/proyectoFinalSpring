@@ -71,7 +71,7 @@ public class UserServiceImpl {
 		originalUser.setUsername(user.getUsername());
 		originalUser.setEmail(user.getEmail());
 
-		if (user.getPassword() != originalUser.getPassword()) {
+		if (user.getPassword() != null) {
 			System.out.println("maybe?");
 			originalUser.setUserDetails(user.getUserDetails());
 			originalUser.setUsername(user.getUsername());
